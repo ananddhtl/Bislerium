@@ -1,0 +1,61 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<ul class="navbar-nav">
+@if (SignInManager.IsSignedIn(User))
+{
+    
+
+        <li class="nav-item dropdown">
+            <a href="" class="   d-flex align-items-center dropdown-toggle" id="drop-down-arrow"
+               data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="~/templates/images/user/1.jpg" class="img-fluid rounded-circle me-3" alt="user">
+                <div class="caption">
+                    <h6 class="mb-0 line-height"> @UserManager.GetUserName(User)</h6>
+                </div>
+            </a>
+            <div class="sub-drop dropdown-menu caption-menu" aria-labelledby="drop-down-arrow">
+                <div class="card shadow-none m-0">
+                    <div class="card-header  bg-primary">
+                        <div class="header-title">
+                            <h5 class="mb-0 text-white">Hello @UserManager.GetUserName(User)</h5>
+                            <span class="text-white font-size-12">Available</span>
+                        </div>
+                    </div>
+                    <div class="card-body p-0 ">
+                       
+                       
+                        
+                        <div class="d-inline-block w-100 text-center p-3">
+
+                            @if (User.Identity.IsAuthenticated && User.Identity.Name.EndsWith("@admin.com"))
+                            {
+                                <a asp-controller="Admin" asp-action="Dashboard" class="btn btn-primary iq-sign-btn">Admin Dashboard</a>
+
+                                <a asp-controller="Admin" asp-action="AddAdminUser" class="btn btn-primary iq-sign-btn">Add AdminUser</a>
+                            }
+
+                            <a class="btn btn-primary iq-sign-btn" href="
+                               role="button">
+                                <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                    <button id="logout" type="submit" class="nav-link btn btn-link text-dark border-0">Logout</button>
+                                </form><i class="ri-login-box-line ms-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+}
+else
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+    </li>
+}
+</ul>

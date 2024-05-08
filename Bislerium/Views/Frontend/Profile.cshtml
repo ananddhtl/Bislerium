@@ -1,0 +1,287 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+<div id="content-page" class="content-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body profile-page p-0">
+                        <div class="profile-header">
+                            <div class="position-relative">
+                                <img src="~/templates/images/page-img/profile-bg1.jpg" alt="profile-bg" class="rounded img-fluid">
+                                <ul class="header-nav list-inline d-flex flex-wrap justify-end p-0 m-0">
+                                    <li><a href="#"><i class="ri-pencil-line"></i></a></li>
+                                    <li><a href="#"><i class="ri-settings-4-line"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="user-detail text-center mb-3">
+                                <div class="profile-img">
+                                    <img src="~/templates/images/user/11.png" alt="profile-img" class="avatar-130 img-fluid">
+                                </div>
+                                <div class="profile-detail">
+                                    <h3 class=""> @UserManager.GetUserName(User)</h3>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body p-0">
+                        <div class="user-tabing">
+                            <ul class="nav nav-pills d-flex align-items-center justify-content-center profile-feed-items p-0 m-0">
+                                <li class="nav-item col-12 col-sm-3 p-0">
+                                    <a class="nav-link active" href="#pills-timeline-tab" data-bs-toggle="pill" data-bs-target="#timeline" role="button">Timeline</a>
+                                </li>
+                                <li class="nav-item col-12 col-sm-3 p-0">
+                                    <a class="nav-link" href="#pills-about-tab" data-bs-toggle="pill" data-bs-target="#about" role="button">About</a>
+                                </li>
+                               
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="tab-content">
+                    <div class="tab-pane fade active show" id="timeline" role="tabpanel">
+                        <div class="card-body p-0">
+                            <div class="row">
+                               
+                                <div class="col-lg-12">
+                                     @foreach (var blogs in Model)
+                                    {
+                                        <div class="card">
+                                            <div class="card-body">
+                                            <div class="post-item">
+                                                <div class="user-post-data pb-3">
+                                                    <div class="d-flex justify-content-between">
+                                                        <div class="me-3">
+                                                            <img class="rounded-circle  avatar-60" src="~/templates/images/user/1.jpg" alt="">
+                                                        </div>
+                                                        <div class="w-100">
+                                                            <div class="d-flex justify-content-between flex-wrap">
+                                                                <div class="">
+                                                                        <h5 class="mb-0 d-inline-block"><a href="#" class="">@blogs.User.UserName</a></h5>
+                                                                    <p class="ms-1 mb-0 d-inline-block">Add New Post</p>
+                                                                    <p class="mb-0">3 hour ago</p>
+                                                                </div>
+                                                                <div class="card-post-toolbar">
+                                                                    <div class="dropdown">
+                                                                        <span class="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
+                                                                            <i class="ri-more-fill"></i>
+                                                                        </span>
+                                                                        <div class="dropdown-menu m-0 p-0">
+                                                                            
+                                                                                <a class="dropdown-item p-3" asp-controller="Blog" asp-action="EditBlog" asp-route-id="@blogs.Id">
+                                                                                <div class="d-flex align-items-top">
+                                                                                    <i class="ri-pencil-line h4"></i>
+                                                                                    <div class="data ms-2">
+                                                                                        <h6>Edit Post</h6>
+                                                                                        <p class="mb-0">Edit this Blog</p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </a>
+                                                                           
+                                                                                <a class="dropdown-item p-3" asp-controller="Blog" asp-action="DeleteBlog" asp-route-id="@blogs.Id">
+                                                                                <div class="d-flex align-items-top">
+                                                                                    <i class="ri-delete-bin-7-line h4"></i>
+                                                                                    <div class="data ms-2">
+                                                                                        <h6>Delete</h6>
+                                                                                        <p class="mb-0">Remove this blog Timeline</p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </a>
+                                                                           
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                    <div class="mt-3">
+                                                       
+                                                            <p>@blogs.Description</p>
+                                                       
+
+                                                    </div>
+                                                <div class="user-post">
+                                                        <a href="#"><img src=" @blogs.Image" alt="post-image" class="img-fluid w-100"></a>
+                                                </div>
+                                                <div class="comment-area mt-3">
+                                                    <div class="d-flex justify-content-between align-items-center flex-wrap">
+                                                        <div class="like-block position-relative d-flex align-items-center">
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="like-data">
+                                                                    <div class="dropdown">
+                                                                        <span class="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
+                                                                            <img src="~/templates/images/icon/01.png" class="img-fluid" alt="">
+                                                                        </span>
+                                                                        <div class="dropdown-menu py-2">
+                                                                            <a class="ms-2 me-2" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Like" aria-label="Like"><img src="~/templates/images/icon/01.png" class="img-fluid" alt=""></a>
+                                                                            <a class="me-2" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Love" aria-label="Love"><img src="~/templates/images/icon/02.png" class="img-fluid" alt=""></a>
+                                                                            <a class="me-2" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Happy" aria-label="Happy"><img src="~/templates/images/icon/03.png" class="img-fluid" alt=""></a>
+                                                                            <a class="me-2" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="HaHa" aria-label="HaHa"><img src="~/templates/images/icon/04.png" class="img-fluid" alt=""></a>
+                                                                            <a class="me-2" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Think" aria-label="Think"><img src="~/templates/images/icon/05.png" class="img-fluid" alt=""></a>
+                                                                            <a class="me-2" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Sade" aria-label="Sade"><img src="~/templates/images/icon/06.png" class="img-fluid" alt=""></a>
+                                                                            <a class="me-2" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Lovely" aria-label="Lovely"><img src="~/templates/images/icon/07.png" class="img-fluid" alt=""></a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="total-like-block ms-2 me-3">
+                                                                    <div class="dropdown">
+                                                                        <span class="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
+                                                                            140 Likes
+                                                                        </span>
+                                                                        <div class="dropdown-menu">
+                                                                            <a class="dropdown-item" href="#">Max Emum</a>
+                                                                            <a class="dropdown-item" href="#">Bill Yerds</a>
+                                                                            <a class="dropdown-item" href="#">Hap E. Birthday</a>
+                                                                            <a class="dropdown-item" href="#">Tara Misu</a>
+                                                                            <a class="dropdown-item" href="#">Midge Itz</a>
+                                                                            <a class="dropdown-item" href="#">Sal Vidge</a>
+                                                                            <a class="dropdown-item" href="#">Other</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="total-comment-block">
+                                                                <div class="dropdown">
+                                                                    <span class="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
+                                                                        20 Comment
+                                                                    </span>
+                                                                    <div class="dropdown-menu">
+                                                                        <a class="dropdown-item" href="#">Max Emum</a>
+                                                                        <a class="dropdown-item" href="#">Bill Yerds</a>
+                                                                        <a class="dropdown-item" href="#">Hap E. Birthday</a>
+                                                                        <a class="dropdown-item" href="#">Tara Misu</a>
+                                                                        <a class="dropdown-item" href="#">Midge Itz</a>
+                                                                        <a class="dropdown-item" href="#">Sal Vidge</a>
+                                                                        <a class="dropdown-item" href="#">Other</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="share-block d-flex align-items-center feather-icon mt-2 mt-md-0">
+                                                            <a href="#" data-bs-toggle="offcanvas" data-bs-target="#share-btn" aria-controls="share-btn">
+                                                                <i class="ri-share-line"></i>
+                                                                <span class="ms-1">99 Share</span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <ul class="post-comments p-0 m-0">
+                                                        <li class="mb-2">
+                                                            <div class="d-flex flex-wrap">
+                                                                <div class="user-img">
+                                                                    <img src="~/templates/images/user/02.jpg" alt="userimg" class="avatar-35 rounded-circle img-fluid">
+                                                                </div>
+                                                                <div class="comment-data-block ms-3">
+                                                                    <h6>Monty Carlo</h6>
+                                                                    <p class="mb-0">Lorem ipsum dolor sit amet</p>
+                                                                    <div class="d-flex flex-wrap align-items-center comment-activity">
+                                                                        <a href="#">like</a>
+                                                                        <a href="#">reply</a>
+                                                                        <a href="#">translate</a>
+                                                                        <span> 5 min </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="d-flex flex-wrap">
+                                                                <div class="user-img">
+                                                                    <img src="~/templates/images/user/03.jpg" alt="userimg" class="avatar-35 rounded-circle img-fluid">
+                                                                </div>
+                                                                <div class="comment-data-block ms-3">
+                                                                    <h6>Paul Molive</h6>
+                                                                    <p class="mb-0">Lorem ipsum dolor sit amet</p>
+                                                                    <div class="d-flex flex-wrap align-items-center comment-activity">
+                                                                        <a href="#">like</a>
+                                                                        <a href="#">reply</a>
+                                                                        <a href="#">translate</a>
+                                                                        <span> 5 min </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                    <form class="comment-text d-flex align-items-center mt-3" action="javascript:void(0);">
+                                                        <input type="text" class="form-control rounded" placeholder="Enter Your Comment">
+                                                        <div class="comment-attagement d-flex">
+                                                            <a href="#"><i class="ri-link me-3"></i></a>
+                                                            <a href="#"><i class="ri-user-smile-line me-3"></i></a>
+                                                            <a href="#"><i class="ri-camera-line me-3"></i></a>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                           
+                                        </div>
+                                    </div> 
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="about" role="tabpanel">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <ul class="nav nav-pills basic-info-items list-inline d-block p-0 m-0">
+                                            <li>
+                                                <a class="nav-link active" href="#v-pills-basicinfo-tab" data-bs-toggle="pill" data-bs-target="#v-pills-basicinfo-tab" role="button">Contact and Basic Info</a>
+                                            </li>
+                                           
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-9 ps-4">
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade active show" id="v-pills-basicinfo-tab" role="tabpanel" aria-labelledby="v-pills-basicinfo-tab">
+                                                <h4>Contact Information</h4>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-3">
+                                                        <h6>Email</h6>
+                                                    </div>
+                                                    <div class="col-9">
+                                                        <p class="mb-0"> @UserManager.GetUserName(User)</p>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <h6>Mobile</h6>
+                                                    </div>
+                                                    <div class="col-9">
+                                                        <p class="mb-0">987*******</p>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <h6>Address</h6>
+                                                    </div>
+                                                    <div class="col-9">
+                                                        <p class="mb-0">Nepal..*****</p>
+                                                    </div>
+                                                </div>
+                                                
+                                                
+                                            </div>
+                                           
+                                           
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  
+                </div>
+            </div>
+          
+        </div>
+    </div>
+</div>
